@@ -1,5 +1,10 @@
 pipeline {
-  agent { dockerfile true }  
-    stage('Test-windows') {
-  }
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                bat 'dir'
+            }
+        }
+    }
 }
