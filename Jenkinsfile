@@ -19,15 +19,5 @@ spec:
   nodeSelector:
     beta.kubernetes.io/os: windows'''
   }
-}
-  agent { 
-      dockerfile true 
-    }
-    stages {
-        stage('Test') {
-            steps {
-                cmd 'dir'
-            }
-        }
-    }
+ }
 }
