@@ -14,7 +14,12 @@ spec:
             powershell '''
             Set-ExecutionPolicy Bypass -Scope Process -Force;   [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
             choco install docker-cli -y
-            echo FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019\nRUN icacls 'C:\inetpub\wwwroot\' /grant 'IIS_IUSRS:(OI)(CI)F'\nRUN icacls "'C:\inetpub\wwwroot\'  /grant 'IIS APPPOOL\DefaultAppPool:(OI)(CI)F'"\nARG source\nWORKDIR /inetpub/wwwroot\nCOPY ${source} . > Dockerfile
+            echo FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019 > Dockerfile
+            echo RUN icacls 'C:\inetpub\wwwroot\' /grant 'IIS_IUSRS:(OI)(CI)F' >> Dockerfile
+            echo RUN icacls "'C:\inetpub\wwwroot\'  /grant 'IIS APPPOOL\DefaultAppPool:(OI)(CI)F'" >> Dockerfile
+            echo ARG source >> Dockerfile
+            echo WORKDIR /inetpub/wwwroot >> Dockerfile
+            echo COPY ${source} . >> Dockerfile
             docker build -t test .
             '''
         }
