@@ -10,17 +10,24 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
   - name: shell
-    image: us-docker.pkg.dev/gke-windows-tools/docker-repo/gke-windows-builder:latest
+    image: mcr.microsoft.com/powershell:preview-windowsservercore-1809
     command:
-    - $env:DOCKER_CLI_EXPERIMENTAL = 'enabled'
-    - docker manifest create us-central1-docker.pkg.dev/gj-playground/windows-bss/multiarch-pd-jenkins:latest us-central1-docker.pkg.dev/gj-playground/windows-bss/pd-jenkins:latest_ltsc2019
-    - docker manifest push us-central1-docker.pkg.dev/gj-playground/windows-bss/multiarch-pd-jenkins:latest
+    - powershell
+    args:
+    - Start-Sleep
+    - 999999
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
     node(POD_LABEL) {
         container('shell') {
-            powershell 'set'
+            powershell '''
+            echo "### Install chocolatey package manager ###"
+              Set-ExecutionPolicy Bypass -Scope Process -Force;   [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+              
+              echo "### Install Docker Engine ###"
+              choco install docker-engine -y
+
         }
     }
 }
