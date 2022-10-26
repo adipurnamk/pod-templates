@@ -10,18 +10,17 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
   - name: shell
-    image: mcr.microsoft.com/powershell:preview-windowsservercore-1809
+    image: us-docker.pkg.dev/gke-windows-tools/docker-repo/gke-windows-builder:latest
     command:
-    - powershell
-    args:
-    - Start-Sleep
-    - 999999
+    - $env:DOCKER_CLI_EXPERIMENTAL = 'enabled'
+    - docker manifest create us-central1-docker.pkg.dev/gj-playground/windows-bss/multiarch-pd-jenkins:latest us-central1-docker.pkg.dev/gj-playground/windows-bss/pd-jenkins:latest_ltsc2019
+    - docker manifest push us-central1-docker.pkg.dev/gj-playground/windows-bss/multiarch-pd-jenkins:latest
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
     node(POD_LABEL) {
         container('shell') {
-            powershell 'docker build -t pdaja .'
+            powershell 'set'
         }
     }
 }
