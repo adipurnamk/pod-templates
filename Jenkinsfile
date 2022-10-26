@@ -5,13 +5,15 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
+  - name: gcloud
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
     node(POD_LABEL) {
       stage('Build Docker Image') {
         container('jnlp') {
-            bat 'docker build -t test .'
+            powershell 'gcloud components update --quiet'
+            
         }
       }
    }
