@@ -6,6 +6,7 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
   - name: gcloud
+    image: google/cloud-sdk:alpine
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
