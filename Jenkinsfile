@@ -12,7 +12,7 @@ pipeline {
           - name: docker
             image: docker:windowsservercore-1809
             command:
-            - cat
+            - more
             tty: true
           nodeSelector:
             kubernetes.io/os: windows
