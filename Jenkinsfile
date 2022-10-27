@@ -10,12 +10,12 @@ pipeline {
         spec:
           containers:
           - name: jnlp
-            image: jenkins/inbound-agent:windowsservercore-1809
+            image: jenkins/inbound-agent:windowsservercore-ltsc2019
             command:
             - cat
             tty: true
           - name: docker
-            image: docker:windowsservercore-ltsc2022
+            image: docker:windowsservercore-1809
             command:
             - cat
             tty: true
