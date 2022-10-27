@@ -12,10 +12,8 @@ spec:
   - name: docker
     image: docker:windowsservercore-ltsc2022
     command:
-    - docker version
-    args:
-    - Start-Sleep
-    - 999999
+    - cat
+    tty: true
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
