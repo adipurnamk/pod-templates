@@ -10,7 +10,7 @@ pipeline {
         spec:
           containers:
           - name: docker
-            image: docker:windowsservercore-ltsc2022
+            image: docker:windowsservercore
             command:
             - cat
             tty: true
