@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: jnlp
-    image: jenkins/inbound-agent:4.10-1-windowsservercore-ltsc2019
+    image: jenkins/inbound-agent:4.13-1-jdk11-windowsservercore-ltsc2019
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
