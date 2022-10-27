@@ -1,1 +1,1 @@
-# pod-templates
+# CI/CD template
