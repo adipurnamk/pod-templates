@@ -17,7 +17,7 @@ spec:
             which docker
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             dir
-            Start-Process "C:\Program Files\Docker\Docker.exe"
+            Start-Service docker
             docker build -t test .
             '''
         }
