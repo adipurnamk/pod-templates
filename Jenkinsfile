@@ -16,7 +16,7 @@ spec:
             choco install docker-cli -y
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             dir
-            echo start docker
+            echo 'start docker'
             Start-Service docker
             docker build -t test .
             '''
