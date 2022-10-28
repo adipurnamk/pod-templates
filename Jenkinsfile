@@ -6,30 +6,9 @@ podTemplate(yaml: '''
 apiVersion: "v1"
 kind: "Pod"
 metadata:
-  annotations:
-    buildUrl: "http://jenkins.default.svc.cluster.local:8080/job/windows-pipeline/43/"
-    runUrl: "job/windows-pipeline/43/"
-  labels:
-    jenkins/jenkins-jenkins-agent: "true"
-    jenkins/label-digest: "d4b383c5da0e0e25975e9df937ade53516cab81a"
-    jenkins/label: "windows-pipeline_43-kwzgw"
-  name: "windows-pipeline-43-kwzgw-07xt9-stgp5"
-  namespace: "default"
-spec:
+ spec:
   containers:
   - env:
-    - name: "JENKINS_SECRET"
-      value: "********"
-    - name: "JENKINS_TUNNEL"
-      value: "jenkins-agent.default.svc.cluster.local:50000"
-    - name: "JENKINS_AGENT_NAME"
-      value: "windows-pipeline"
-    - name: "JENKINS_NAME"
-      value: "windows-pipeline"
-    - name: "JENKINS_AGENT_WORKDIR"
-      value: "/home/jenkins/agent"
-    - name: "JENKINS_URL"
-      value: "http://jenkins.default.svc.cluster.local:8080/"
     image: "jenkins/inbound-agent:4.13-1-jdk11-windowsservercore-ltsc2019"
     name: "jnlp"
     resources:
@@ -42,7 +21,7 @@ spec:
       name: "workspace-volume"
       readOnly: false
     volume:
-    - "//./pipe/docker_engine"
+    - "//./pipe/docker_engine://./pipe/docker_engine"
   nodeSelector:
     kubernetes.io/os: "windows"
   restartPolicy: "Never"
