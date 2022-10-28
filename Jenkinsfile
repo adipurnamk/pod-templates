@@ -23,7 +23,7 @@ spec:
             # Clean-up
             rm docker-installer.exe
             # Run
-            start-process "$env:ProgramFiles\docker\Docker\Docker for Windows.exe"
+            start-process "$env:ProgramFiles\\docker\\Docker\\Docker for Windows.exe"
             write-host "Done."
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             docker build -t .
