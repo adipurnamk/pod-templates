@@ -9,7 +9,9 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:4.13-1-jdk11-windowsservercore-ltsc2019
-    args: [-v //./pipe/docker_engine://./pipe/docker_engine]
+    volumeMounts:
+    - mountPath: //./pipe/docker_engine://./pipe/docker_engine
+      name: test-volume
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
