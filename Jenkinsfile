@@ -10,7 +10,7 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:4.13-1-jdk11-windowsservercore-ltsc2019
     volume:
-      name: //./pipe/docker_engine://./pipe/docker_engine
+      - //./pipe/docker_engine://./pipe/docker_engine
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
