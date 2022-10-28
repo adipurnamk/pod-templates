@@ -9,18 +9,15 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:4.13-1-jdk11-windowsservercore-ltsc2019
+    args: [-v //./pipe/docker_engine://./pipe/docker_engine]
   nodeSelector:
     kubernetes.io/os: windows
 ''') {
     node(POD_LABEL) {
         container('jnlp') {
             powershell '''
-            Invoke-restmethod -Uri https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
-            echo'Install'
-            Start-Process 'Docker Desktop Installer.exe' -Wait install --quiet
-            echo 'run'
-            dir C:\\ProgramFiles\\Docker\\Docker\\
-            echo 'done'
+            IInvoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" -o install-docker-ce.ps1
+.\\install-docker-ce.ps1
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             docker build -t .
             '''
