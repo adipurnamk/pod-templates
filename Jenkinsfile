@@ -17,7 +17,7 @@ spec:
             powershell '''
             Invoke-restmethod -Uri https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
             echo'Install'
-            Start-Process 'Docker Desktop Installer.exe' -Wait install --quiet"
+            Start-Process 'Docker Desktop Installer.exe' -Wait install --quiet
             echo 'run'
             dir C:\\ProgramFiles\\Docker\\Docker\\
             echo 'done'
