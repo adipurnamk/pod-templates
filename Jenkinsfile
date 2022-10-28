@@ -15,14 +15,12 @@ spec:
     node(POD_LABEL) {
         container('jnlp') {
             powershell '''
-            # First Download the installer (wget is slow...)
-            # wget https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe -OutFile docker-installer.exe
             Invoke-restmethod -Uri https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
-            # Install
+            echo'Install'
             Start-Process 'Docker Desktop Installer.exe' -Wait install --quiet"
-            # Run
+            echo 'run'
             start-process "C:\\ProgramFiles\\Docker\\Docker\\Docker Desktop.exe"
-            write-host "Done."
+            echo 'done'
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             docker build -t .
             '''
