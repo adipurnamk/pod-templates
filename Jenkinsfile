@@ -19,7 +19,7 @@ spec:
             echo'Install'
             Start-Process 'Docker Desktop Installer.exe' -Wait install --quiet"
             echo 'run'
-            dir C:\ProgramFiles\Docker\Docker\
+            dir C:\\ProgramFiles\\Docker\\Docker\\
             echo 'done'
             Invoke-restmethod -Uri https://raw.githubusercontent.com/Rizal-I/pod-templates/master/Dockerfile > Dockerfile
             docker build -t .
