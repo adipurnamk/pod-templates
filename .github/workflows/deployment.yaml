@@ -1,72 +1,33 @@
 name: Run commands on different operating systems
 on:
   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
 
 jobs:
-#   Run-npm-on-Ubuntu:
-#     name: Run npm on Ubuntu
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: '14'
-#       - run: npm help
-
-  Run-PSScriptAnalyzer-on-Windows:
-    name: Run PSScriptAnalyzer on Windows
+  Build-and-Push-Windows-Container-Image:
+    name: Building on Windows
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
-      - name: Install PSScriptAnalyzer module
-        shell: pwsh
-        run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module PSScriptAnalyzer -ErrorAction Stop
+#       - name: Install PSScriptAnalyzer module
+#         shell: pwsh
+#         run: |
+#           Set-PSRepository PSGallery -InstallationPolicy Trusted
+#           Install-Module PSScriptAnalyzer -ErrorAction Stop
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-#       - name: Write JSON file
-#         run:  printf '${{ secrets.GOOGLE_CREDENTIALS }}' >> key.json
-      - name: Get list of rules
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' #service account key.JSON must be flatened/minified
+      - name: "Build and Push Container Image"
         shell: pwsh
         run: |
-          dir
           cat *.json | docker login https://asia.gcr.io -u _json_key --password-stdin
-          docker build -t asia.gcr.io/gj-playground/aspent:0.1 .
+          docker build -t asia.gcr.io/gj-playground/aspnet:0.1 .
           docker images
           docker push asia.gcr.io/gj-playground/aspent:0.1
-          
-  
-#   Run-npm-on-Ubuntu:
-#     name: Run npm on Ubuntu
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: '14'
-#       - run: npm help
-#       - name: Push to asia.gcr.io
-#         uses: kurkop/push-docker-gcr@v1.2.2
-#         with:
-#           docker_image_name: aspnet
-#           docker_image_tag: latest
-#           docker_context: .
-#           gcr_host: asia.gcr.io
-#           gcr_project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-#           gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-#       - name: Push to asia.gcr.io
-#         uses: raccoondev/push-docker-gcr@v1
-#         with:
-#           image_name: aspnet
-#           image_tag: latest
-#           gcr_host: asia.gcr.io
-#           env: |
-#             GOOGLE_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
-#             GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
