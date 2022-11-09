@@ -31,3 +31,12 @@ jobs:
         run: |
           docker build -t aspnet:latest .
           docker images
+      - uses: Industrial/push-docker-gcr@v1.2.2
+      - name: push image to gcr
+        with:
+          docker_image_name: aspnet
+          docker_image_tag: latest
+          docker_context: .
+          gcr_host: asia.gcr.io
+          gcr_project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
