@@ -32,7 +32,7 @@ jobs:
           docker build -t aspnet:latest .
           docker images
       - name: Push to asia.gcr.io
-        uses: Industrial/push-docker-gcr@v1.2.2
+        uses: kurkop/push-docker-gcr@v1.2.2
         with:
           docker_image_name: aspnet
           docker_image_tag: latest
