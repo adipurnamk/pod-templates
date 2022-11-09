@@ -35,11 +35,9 @@ jobs:
           cat key.json
           docker build -t asia.gcr.io/gj-playground/aspentp:0.1 .
           docker images
-          Get-Content key.json |
-          docker login -u json --password-stdin https://asia.gcr.io
-          echo "try second command"
-          docker login -u _json_key --password-stdin https://asia.gcr.io < key.json
+          cat key.json | docker login https://asia.gcr.io -u _json_key --password-stdin
           docker push
+          
   
 #   Run-npm-on-Ubuntu:
 #     name: Run npm on Ubuntu
