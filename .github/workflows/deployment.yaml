@@ -29,5 +29,5 @@ jobs:
       - name: Get list of rules
         shell: pwsh
         run: |
-          docker build -t container1 .
+          docker build -t aspnet:latest .
           docker images
