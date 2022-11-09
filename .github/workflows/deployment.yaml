@@ -24,8 +24,8 @@ jobs:
           cat *.json | docker login https://asia.gcr.io -u _json_key --password-stdin
           docker build -t asia.gcr.io/gj-playground/aspnet:0.1 .
           docker images
-          docker push asia.gcr.io/gj-playground/aspent:0.1
-      - name: Discord notification
+          docker push asia.gcr.io/gj-playground/aspnet:0.1
+      - name: Discord Notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
