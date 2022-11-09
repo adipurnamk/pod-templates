@@ -26,17 +26,21 @@ jobs:
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module PSScriptAnalyzer -ErrorAction Stop
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
       - name: Write JSON file
-        run:  printf '${{ secrets.GCLOUD_SERVICE_KEY }}' >> key.json
+        run:  printf '${{ secrets.GOOGLE_CREDENTIALS }}' >> key.json
       - name: Get list of rules
         shell: pwsh
         run: |
           dir
-          cat key.json
-          docker build -t asia.gcr.io/gj-playground/aspentp:0.1 .
-          docker images
           cat key.json | docker login https://asia.gcr.io -u _json_key --password-stdin
-          docker push
+          docker build -t asia.gcr.io/gj-playground/aspent:0.1 .
+          docker images
+          docker push asia.gcr.io/gj-playground/aspent:0.1
           
   
 #   Run-npm-on-Ubuntu:
