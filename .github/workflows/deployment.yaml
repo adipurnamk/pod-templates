@@ -25,9 +25,15 @@ jobs:
           docker build -t asia.gcr.io/gj-playground/aspnet:0.1 .
           docker images
           docker push asia.gcr.io/gj-playground/aspnet:0.1
-      - name: Discord Notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
+      - name: Test Custom
+        uses: rjstone/discord-webhook-notify@v1
         with:
-          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+#             severity: info
+            username: Itsuka
+            color: '#BEFF33'
+            avatarUrl: https://64.media.tumblr.com/0f83617c15f6f6ea02e91c9f4dddf872/72959dd2774a652e-68/s1280x1920/a8467446d7b614dc36c98e911a952f9288737b55.jpg
+            description: aspnet image has been pushed
+            details: 'Github Action'
+#             footer: This is a footer.
+#             text: This is where text goes.
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
