@@ -31,13 +31,13 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Write JSON file
-        run:  printf '${{ secrets.GOOGLE_CREDENTIALS }}' >> key.json
+#       - name: Write JSON file
+#         run:  printf '${{ secrets.GOOGLE_CREDENTIALS }}' >> key.json
       - name: Get list of rules
         shell: pwsh
         run: |
           dir
-          cat key.json | docker login https://asia.gcr.io -u _json_key --password-stdin
+          cat *.json | docker login https://asia.gcr.io -u _json_key --password-stdin
           docker build -t asia.gcr.io/gj-playground/aspent:0.1 .
           docker images
           docker push asia.gcr.io/gj-playground/aspent:0.1
