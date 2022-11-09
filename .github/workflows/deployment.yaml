@@ -18,7 +18,7 @@ jobs:
 
   Run-PSScriptAnalyzer-on-Windows:
     name: Run PSScriptAnalyzer on Windows
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
       - name: Install PSScriptAnalyzer module
@@ -30,6 +30,7 @@ jobs:
         shell: pwsh
         run: |
           Get-ScriptAnalyzerRule
+          docker info
           Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" -o install-docker-ce.ps1 
           dir
           .\install-docker-ce.ps1
