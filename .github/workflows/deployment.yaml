@@ -31,8 +31,8 @@ jobs:
         run: |
           docker build -t aspnet:latest .
           docker images
-      - uses: Industrial/push-docker-gcr@v1.2.2
-      - name: push image to gcr
+      - name: Push to asia.gcr.io
+        uses: Industrial/push-docker-gcr@v1.2.2
         with:
           docker_image_name: aspnet
           docker_image_tag: latest
