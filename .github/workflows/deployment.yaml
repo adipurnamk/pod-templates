@@ -31,6 +31,10 @@ jobs:
         run: |
           docker build -t aspnet:latest .
           docker images
+          echo "##########################"
+          echo "Push to asia.gcr.io"
+          docker login -u _json_key --password-stdin https://asia.gcr.io < ${{ secrets.GCLOUD_SERVICE_KEY }}
+          echo "##########################"
 #       - name: Push to asia.gcr.io
 #         uses: kurkop/push-docker-gcr@v1.2.2
 #         with:
@@ -40,12 +44,12 @@ jobs:
 #           gcr_host: asia.gcr.io
 #           gcr_project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
 #           gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-      - name: Push to asia.gcr.io
-        uses: raccoondev/push-docker-gcr@v1
-        with:
-          image_name: aspnet
-          image_tag: latest
-          gcr_host: asia.gcr.io
-          env: |
-            GOOGLE_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
-            GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+#       - name: Push to asia.gcr.io
+#         uses: raccoondev/push-docker-gcr@v1
+#         with:
+#           image_name: aspnet
+#           image_tag: latest
+#           gcr_host: asia.gcr.io
+#           env: |
+#             GOOGLE_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+#             GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
