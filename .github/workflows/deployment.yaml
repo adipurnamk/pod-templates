@@ -1,4 +1,4 @@
-name: Run commands on different operating systems
+name: Run commands on Windows-based runner
 on:
   push:
 
@@ -25,7 +25,7 @@ jobs:
           docker build -t asia.gcr.io/gj-playground/aspnet:0.1 .
           docker images
           docker push asia.gcr.io/gj-playground/aspnet:0.1
-      - name: Test Custom
+      - name: Send Discord Notification
         uses: rjstone/discord-webhook-notify@v1
         with:
             severity: info
